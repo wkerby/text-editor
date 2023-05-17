@@ -50,7 +50,22 @@ module.exports = () => {
 
     module: {
       rules: [
-        
+        {
+          test: /\.css$/i, //searches for any file with .css extension
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.m?js$/, //searches for any file with .js extension
+          exclude: /node_modules/,
+          // bring in babel-loader to transpile any ES5 JavaScript to ES6
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+            },
+          },
+        },
       ],
     },
   };
