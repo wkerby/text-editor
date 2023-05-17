@@ -22,6 +22,11 @@ module.exports = () => {
       template: './index.html',
       title: 'JATE'
     }),
+    
+    new InjectManifest({ //creates custom service worker
+      swSrc: './src-sw.js',
+      swDest: 'src-sw.js',
+    })
 
       
     ],
