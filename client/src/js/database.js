@@ -16,8 +16,12 @@ const initdb = async () =>
 export const putDb = async (content) => {
   try {
     console.log('PUT to the database');
-  const jateDb = await openDB('jate', 1)
-
+    const jateDb = await openDB('jate', 1);
+    const tx = jateDb.transaction('jate', 'readwrite'); //readwrite parameter allows us to update indexedDB
+    const store = tx.objectStore('jate');
+    const request = store.add({ text: content });
+    const result = await request;
+    console.log('🚀 - data saved to the database', result.value);
   }
 
   catch (err) {
