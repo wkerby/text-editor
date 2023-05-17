@@ -17,7 +17,12 @@ module.exports = () => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
-    plugins: [
+    plugins: [ //insert plug-in to bundle html
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      title: 'JATE'
+    }),
+
       
     ],
 
