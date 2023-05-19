@@ -33,22 +33,24 @@ export const putDb = async (content) => {
 export const getDb = async () => {
   try {
     console.log('GET all from the database');
-  const jateDb = await openDB('jate', 1);
-  const tx = jateDb.transaction('jate', 'readonly');
-  const store = tx.objectStore('jate');
-  const request = store.get("text"); //retrieves what is stored in the text editor
-  const result = await request;
-  if (result) {
-    console.log("🚀 - data retrieved from the database", result.value)
-  }
-  else {
-    console.log("🚀 - data not found in the database")
-  }
+    const jateDb = await openDB('jate', 1); //do I have to provide value of 1?
+    const tx = jateDb.transaction('jate', 'readonly');
+    const store = tx.objectStore('jate');
+    const request = store.getAll(); //retrieves what is stored in the text editor
+    const result = await request;
+    if (result) {
+      console.log("🚀 - data retrieved from the database", result)
+    }
+    else {
+      console.log("🚀 - data not found in the database")
+    }
   }
 
   catch (err) {
+    console.log(err);
     console.error('getDb not implemented')
   }
 };
+
 
 initdb();
