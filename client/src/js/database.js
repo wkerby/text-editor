@@ -20,7 +20,7 @@ export const putDb = async (content) => {
     const jateDb = await openDB('jate', 1);
     const tx = jateDb.transaction('jate', 'readwrite');
     const store = tx.objectStore('jate');
-    const request = store.add({ text: content });
+    const request = store.put({id: 1, text: content });
     const result = await request;
 
     if (result) {
@@ -33,11 +33,15 @@ export const putDb = async (content) => {
 
     }
 
+    return result;
+
   }
 
   catch (err) {
     console.log(err)
   }
+
+  
 
 };
 
@@ -48,14 +52,15 @@ export const getDb = async () => {
     const jateDb = await openDB('jate', 1); //do I have to provide value of 1?
     const tx = jateDb.transaction('jate', 'readonly');
     const store = tx.objectStore('jate');
-    const request = store.getAll(); //retrieves what is stored in the text editor
+    const request = store.get(1); //retrieves what is stored in the text editor
     const result = await request;
-    if (result) {
-      console.log("🚀 - data retrieved from the database", result)
+    if (result?.value) {
+      console.log("🚀 - data retrieved from the database", result?.value)
     }
     else {
       console.log("🚀 - data not found in the database")
     }
+    return result?.value;
   }
 
   catch (err) {
